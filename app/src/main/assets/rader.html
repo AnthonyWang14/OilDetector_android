@@ -1,0 +1,77 @@
+<html>
+<head>
+    <script src="Charts.js"></script>
+</head>
+<body>
+<div>
+    <canvas width="200" height="200" id="myChart"></canvas>
+</div>
+
+<script type="text/javascript">
+	var data = {
+		labels : ["最大值","最小值","幅度","均值","方差","正脉冲因子","负脉冲因子","正峰值因子","负峰值因子","波形因子"],
+		datasets : [
+			{
+				label: "Sensor 1",
+				fillColor: "rgba(255,255,0,0.1)",
+				strokeColor: "rgba(255,255,0,1)",
+				pointColor: "rgba(255,255,0,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(255,255,0,1)",
+				data: [10,10,10,10,10,10,10,10,10,10]
+			},
+			{
+				label: "Sensor 2",
+				fillColor: "rgba(151,187,205,0.1)",
+				strokeColor: "rgba(151,187,205,1)",
+				pointColor: "rgba(151,187,205,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(151,187,205,1)",
+				data: [20,20,20,20,20,20,20,20,20,20]
+			},
+			{
+				label: "Sensor 3",
+				fillColor: "rgba(255,0,0,0.1)",
+				strokeColor: "rgba(255,0,0,1)",
+				pointColor: "rgba(255,0,0,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(255,0,0,1)",
+				data: [30,30,30,30,30,30,30,30,30,30]
+			},
+			{
+			    label: "Sensor 4",
+				fillColor: "rgba(0,255,0,0.1)",
+				strokeColor: "rgba(0,255,0,1)",
+				pointColor: "rgba(0,255,0,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(0,255,0,1)",
+				data: [40,40,40,40,40,40,40,40,40,40]
+			}
+		]
+	}
+	</script>
+    <script>
+	 new Chart(document.getElementById("myChart").getContext("2d")).Radar(data, {
+			responsive: true,
+			animation : false
+		});
+	</script>
+    <script>
+    function setData(sensornum,datanum,data0)
+    {
+        data.datasets[sensornum].data[datanum] = data0;
+	}
+	function repaint()
+	{
+	    new Chart(document.getElementById("myChart").getContext("2d")).Radar(data, {
+			responsive: true,
+			animation : false
+		});
+	}
+    </script>
+</body>
+</html>
