@@ -23,7 +23,11 @@
         android:gravity="center"
         android:text="测试时间：2015:03:10"
         android:layout_margin="10dp"/>
-
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list"
+        ></ListView>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +36,7 @@
 
     <WebView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/webview">
     </WebView>
 

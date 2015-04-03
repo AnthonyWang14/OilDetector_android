@@ -293,7 +293,6 @@ public class BlueTooth extends Activity implements OnClickListener {
                     paintflag = 0;
                     int ans = algoWrapper.doCal();
                     sendButton.setText(app.oilKind[ans]);
-
                     return;
 //                        outputResult();
                 }

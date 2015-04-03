@@ -11,7 +11,7 @@ public class MyApplication extends Application {
     public int allShowDataNum;
     public int []answer = null;
     String[] oilKind = null;
-
+    String[] time = null;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,6 +20,7 @@ public class MyApplication extends Application {
         allShowData = new double[100][40];
         oilKind = new String[100];
         answer = new int[100];
+        time = new String[100];
         oilKind[0] = "花生油";
         oilKind[1] = "橄榄油";
         oilKind[2] = "鱼油";
