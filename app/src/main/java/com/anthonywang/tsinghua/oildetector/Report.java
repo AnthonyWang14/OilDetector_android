@@ -69,7 +69,6 @@ public class Report extends Activity {
 
     @Override
     protected void onResume() {
-
         lv.setAdapter(new MyShowAdapter(this));
         super.onResume();
     }
@@ -101,31 +100,10 @@ public class Report extends Activity {
         private MyApplication app;
         private Context context;
         private int length;
-        private int[] resultId;
-        private String[] timeStr;
-        String [] oilKind;
         public MyShowAdapter(Context context) {
             app = (MyApplication)getApplication();
             this.context = context;
             length = app.allShowDataNum;
-//            resultId = new int[100];
-//            timeStr = new String[100];
-//            oilKind = new String[100];
-//            oilKind[0] = "花生油";
-//            oilKind[1] = "橄榄油";
-//            oilKind[2] = "鱼油";
-//            oilKind[3] = "调和油";
-//            oilKind[4] = "辣椒油";
-//            oilKind[5] = "花生油地沟油";
-//            oilKind[6] = "玉米油地沟油";
-//            oilKind[7] = "鱼油地沟油";
-//            oilKind[8] = "调和油地沟油";
-//            oilKind[9] = "辣椒油地沟油";
-//            //for test
-//            resultId[0] = 1;
-//            resultId[1] = 2;
-//            timeStr[0] = "time0";
-//            timeStr[1] = "time1";
         }
 
 
@@ -149,7 +127,7 @@ public class Report extends Activity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
             if(convertView==null){
                 convertView=LayoutInflater.from(context).inflate(R.layout.adater_line, null);
@@ -162,9 +140,22 @@ public class Report extends Activity {
             ItemViewCache cache=(ItemViewCache)convertView.getTag();
             cache.result.setText(app.oilKind[app.answer[position]]);
             cache.time.setText(app.time[position]);
+            //给每个item设置点击事件
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    for (int i = 0; i < 40; i++) {
+                        if (app.allShowDataNum < 1)
+                            return;
+                        double get_double = Double.parseDouble(String.format("%.10f",app.allShowData[position][i]));
+                        String data = Double.toString(get_double);
+                        mWebView.loadUrl("javascript:setData('" + Integer.toString(i/10) + "','" + Integer.toString(i%10) + "','" + data + "')");
+                    }
+                    mWebView.loadUrl("javascript:repaint()");
+                }
+            });
             return convertView;
         }
-
         public class ItemViewCache
         {
             public TextView result;
