@@ -15,14 +15,7 @@
         android:textSize="30dp"
         android:gravity="center" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvTime"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:text="测试时间：2015:03:10"
-        android:layout_margin="10dp"/>
+
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -33,7 +26,14 @@
         android:layout_height="wrap_content"
         android:text="test"
         android:id="@+id/btnjs" />
-
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:text=""
+        android:layout_margin="10dp"/>
     <WebView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

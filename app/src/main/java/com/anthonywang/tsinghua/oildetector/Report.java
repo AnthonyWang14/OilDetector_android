@@ -1,11 +1,9 @@
 package com.anthonywang.tsinghua.oildetector;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.internal.view.menu.MenuView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,15 +14,7 @@ import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-
-
-import com.anthonywang.tsinghua.oildetector.R;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class Report extends Activity {
 
@@ -32,6 +22,7 @@ public class Report extends Activity {
     private Button btnjs;
     private MyApplication app;
     private ListView lv;
+    private TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,7 +31,7 @@ public class Report extends Activity {
         setContentView(R.layout.activity_report);
         mWebView = (WebView) findViewById(R.id.webview);
         btnjs = (Button) findViewById(R.id.btnjs);
-//        tv = (TextView) findViewById(R.id.tv);
+        tv = (TextView) findViewById(R.id.tv);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setSavePassword(false);
         webSettings.setSaveFormData(false);
@@ -106,8 +97,6 @@ public class Report extends Activity {
             length = app.allShowDataNum;
         }
 
-
-
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
@@ -145,6 +134,7 @@ public class Report extends Activity {
                 @Override
                 public void onClick(View v) {
                     for (int i = 0; i < 40; i++) {
+                        tv.setText("测试组"+position+": " + app.oilKind[app.answer[position]] + " " + app.time[position]);
                         if (app.allShowDataNum < 1)
                             return;
                         double get_double = Double.parseDouble(String.format("%.10f",app.allShowData[position][i]));
