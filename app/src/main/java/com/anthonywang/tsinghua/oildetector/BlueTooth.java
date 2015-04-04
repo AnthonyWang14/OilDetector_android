@@ -25,6 +25,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 public class BlueTooth extends Activity implements OnClickListener {
@@ -90,7 +92,7 @@ public class BlueTooth extends Activity implements OnClickListener {
 
         sendButton = (Button)findViewById(R.id.sendButton);
         sendButton.setOnClickListener(new SendButtonClickListener());
-        sendButton.setEnabled(false);
+        sendButton.setEnabled(true);
 
         startButton = (Button)findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
@@ -165,7 +167,7 @@ public class BlueTooth extends Activity implements OnClickListener {
             case R.id.paintButton:
                 paintflag = 1;
                 dataNum = 0;
-
+                sendButton.setText("等待测量结果");
                 break;
         }
     }
@@ -202,6 +204,8 @@ public class BlueTooth extends Activity implements OnClickListener {
 //            byte command = 45;
 //            int value = 0x12345;
 //            sendCmd(command,value);
+            startActivity(new Intent(BlueTooth.this, Report.class));
+            showToast("haha");
         }
     }
 
@@ -241,6 +245,7 @@ public class BlueTooth extends Activity implements OnClickListener {
             startButton.setText("连接蓝牙");
             startButton.setBackgroundColor(Color.rgb(85,54,121));
         }
+        sendButton.setText("等待测量结果");
     }
 
     public void showToast(String str){//显示提示信息
@@ -287,7 +292,6 @@ public class BlueTooth extends Activity implements OnClickListener {
             if (strarray.length  >= 5) {
 
                 //如果数据集已经满了，则将新进入的点从头开始画
-
                 if (dataNum == DataSetSize) {
                     dataNum = 0;
                     paintflag = 0;
@@ -352,7 +356,7 @@ public class BlueTooth extends Activity implements OnClickListener {
                 System.out.println(y0);
                 canvas = holder.lockCanvas(new Rect(x0 - 1, y0 - 1, x0 + 1, y0 + 1));
                 canvas.drawPoint(x0, y0, paint);
-                System.out.println(dataY[i][0]);
+//                System.out.println(dataY[i][0]);
                 holder.unlockCanvasAndPost(canvas);  //解锁画布
             }
         }
@@ -377,13 +381,13 @@ public class BlueTooth extends Activity implements OnClickListener {
                         break;
                 }
 
-                System.out.println(DY);
+//                System.out.println(DY);
                 y0 = HEIGHT - (int) (dataY[i][dataNum - 2] * DY); //实时获取的temp数值，因为对于画布来说
                 y1 = HEIGHT - (int) (dataY[i][dataNum - 1] * DY);
-                System.out.println("i = " + i + "dataNum = " + dataNum + "x0: " + x0);
-                System.out.println("i = " + i + "dataNum = " + dataNum + "y0: " + y0);
-                System.out.println("i = " + i + "dataNum = " + dataNum + "x1: " + x1);
-                System.out.println("i = " + i + "dataNum = " + dataNum + "y1: " + y1);
+//                System.out.println("i = " + i + "dataNum = " + dataNum + "x0: " + x0);
+//                System.out.println("i = " + i + "dataNum = " + dataNum + "y0: " + y0);
+//                System.out.println("i = " + i + "dataNum = " + dataNum + "x1: " + x1);
+//                System.out.println("i = " + i + "dataNum = " + dataNum + "y1: " + y1);
                 canvas.drawPoint(x0, y0, paint);
                 canvas.drawPoint(x1, y1, paint);
                 canvas.drawLine(x0, y0, x1, y1, paint);
@@ -443,7 +447,12 @@ public class BlueTooth extends Activity implements OnClickListener {
                 if ((i+1)%10 == 0)
                     System.out.println(" ");
             }
+            SimpleDateFormat formatter = new SimpleDateFormat ("yyyy年MM月dd日 HH:mm:ss ");
+            Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+            String str = formatter.format(curDate);
+            app.time[app.allShowDataNum] = str;
             app.answer[app.allShowDataNum++] = maxIndex;
+            sendButton.setText("测量结果 " + app.oilKind[app.answer[app.allShowDataNum-1]]);
             if (app.allShowDataNum >=100)
                 app.allShowDataNum = 0;
             return maxIndex;

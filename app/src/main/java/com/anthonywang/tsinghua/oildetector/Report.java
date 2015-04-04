@@ -133,15 +133,21 @@ public class Report extends Activity {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    tv.setText("测试组"+position+": " + app.oilKind[app.answer[position]] + "\n" + app.time[position]);
+                    TextView t = (TextView)findViewById(R.id.tvtest);
+                    String temp = "";
+                    System.out.println("第"+position);
                     for (int i = 0; i < 40; i++) {
-                        tv.setText("测试组"+position+": " + app.oilKind[app.answer[position]] + " " + app.time[position]);
                         if (app.allShowDataNum < 1)
                             return;
                         double get_double = Double.parseDouble(String.format("%.10f",app.allShowData[position][i]));
                         String data = Double.toString(get_double);
+                        System.out.println(data);
+                        temp = temp+data;
                         mWebView.loadUrl("javascript:setData('" + Integer.toString(i/10) + "','" + Integer.toString(i%10) + "','" + data + "')");
                     }
                     mWebView.loadUrl("javascript:repaint()");
+                    t.setText(temp);
                 }
             });
             return convertView;

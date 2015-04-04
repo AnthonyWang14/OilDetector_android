@@ -14,7 +14,11 @@
         android:id="@+id/textView"
         android:textSize="30dp"
         android:gravity="center" />
-
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="测试结果              测试时间"
+        />
 
     <ListView
         android:layout_width="fill_parent"
@@ -34,11 +38,14 @@
         android:gravity="center"
         android:text=""
         android:layout_margin="10dp"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvtest"/>
     <WebView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/webview">
     </WebView>
-
 
 </LinearLayout>
