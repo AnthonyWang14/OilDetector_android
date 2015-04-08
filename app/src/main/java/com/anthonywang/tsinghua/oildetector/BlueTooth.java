@@ -400,9 +400,11 @@ public class BlueTooth extends Activity implements OnClickListener {
         public double showData[][];//4*10-->1*40
         public double nm[][];
         public double IWT[][];//40*50
+        public double b1[][];
         public double layer1[][];//1*50
 
         public double LWT[][];//50*10
+        public double b2[][];
         public double layer2[][];//1*10
 
         public int answer;
@@ -410,8 +412,10 @@ public class BlueTooth extends Activity implements OnClickListener {
         public AlgoWrapper() {
             showData = new double[1][40];
             IWT = new double[40][50];
+            b1 = new double[1][50];
             layer1 = new double[1][50];
             LWT = new double[50][10];
+            b2 = new double[1][10];
             layer2 = new double[1][10];
             answer = 0;
             nm = new double[2][40];
@@ -422,6 +426,8 @@ public class BlueTooth extends Activity implements OnClickListener {
             getShowData();
             layer1 = matrixMult(showData, 1, 40, IWT, 40, 50);
             layer1 = sigmod(layer1, 50);
+            for (int i = 0; i < 50; i++)
+                layer1[0][i] = layer1[0][i] + b1[0][i];
             for (int i = 0; i < 50; i++) {
                 System.out.print(layer1[0][i]+" ");
                 if ((i+1) %10 == 0)
@@ -429,6 +435,8 @@ public class BlueTooth extends Activity implements OnClickListener {
             }
             layer2 = matrixMult(layer1, 1, 50, LWT, 50, 10);
             layer2 = sigmod(layer2, 10);
+            for (int i = 0; i < 10; i++)
+                layer2[0][i] = layer2[0][i] + b2[0][i];
             for (int i = 0; i < 10; i++) {
                 System.out.print(layer2[0][i]+" ");
                 if ((i+1) %10 == 0)
@@ -496,7 +504,8 @@ public class BlueTooth extends Activity implements OnClickListener {
                 showData[0][10*i+9] = ave/DD;
             }
             for (int i = 0; i < 40; i++) {
-                showData[0][i] = (showData[0][i] - nm[0][i])/(nm[1][i] - nm[0][i]);
+//                showData[0][i] = (showData[0][i] - nm[0][i])/(nm[1][i] - nm[0][i]);
+                showData[0][i] = -1 + 2*(showData[0][i] - nm[0][i])/(nm[1][i] - nm[0][i]);
             }
         }
 
